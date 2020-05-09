@@ -288,15 +288,13 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad6()
         {
-            var res = from emp in Emps
-                      join dept in Depts
-                      on emp.Deptno equals dept.Deptno
-                      select new
-                      {
-                          Nazwisko = emp.Ename,
-                          Praca = emp.Job,
-                          Dname = dept.Dname
-                      };
+            var res = Emps
+                .Join(Depts, emp => emp.Deptno, dept => dept.Deptno, (emp, dept) => new
+                {
+                    emp.Ename,
+                    emp.Job,
+                    dept.Dname
+                });
             foreach (var emp in res)
             {
                 Console.WriteLine(emp);
